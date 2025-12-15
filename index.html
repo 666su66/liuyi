@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘翊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        /* 整体布局 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            padding: 20px 0;
+            color: #ecf0f1;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        /* 桌面导航 */
+        .nav-desktop ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-desktop li {
+            margin-left: 30px;
+        }
+        
+        .nav-desktop a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-desktop a:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        /* 移动端导航按钮 */
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+        
+        /* 移动端导航菜单 */
+        .nav-mobile {
+            display: none;
+            background-color: #34495e;
+            width: 100%;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-mobile.active {
+            display: block;
+        }
+        
+        .nav-mobile ul {
+            list-style: none;
+        }
+        
+        .nav-mobile li {
+            border-bottom: 1px solid #3a506b;
+        }
+        
+        .nav-mobile a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-mobile a:hover {
+            background-color: #3498db;
+        }
+        
+        /* 主要内容区域 */
+        main {
+            padding-top: 80px;
+        }
+        
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section:nth-child(even) {
+            background-color: #fff;
+        }
+        
+        .section:nth-child(odd) {
+            background-color: #f5f7fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: #3498db;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        /* 示例段落样式 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon {
+            background-color: #3498db;
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .card-text {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #bdc3c7;
+            margin-top: 20px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-desktop {
+                display: none;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 60px 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .card-title {
+                font-size: 1.3rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+            }
+            
+            .footer-links a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">响应式<span>单页</span></div>
+            
+            <!-- 桌面导航 -->
+            <nav class="nav-desktop">
+                <ul>
+                    <li><a href="#home"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> 关于</a></li>
+                    <li><a href="#services"><i class="fas fa-cogs"></i> 服务</a></li>
+                    <li><a href="#portfolio"><i class="fas fa-briefcase"></i> 作品</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> 联系</a></li>
+                </ul>
+            </nav>
+            
+            <!-- 移动端导航按钮 -->
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <nav class="nav-mobile" id="navMobile">
+            <ul>
+                <li><a href="#home"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> 关于</a></li>
+                <li><a href="#services"><i class="fas fa-cogs"></i> 服务</a></li>
+                <li><a href="#portfolio"><i class="fas fa-briefcase"></i> 作品</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> 联系</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <main>
+        <!-- 首页部分 -->
+        <section id="home" class="section">
+            <h2 class="section-title">欢迎来到刘翊</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 关于部分 -->
+        <section id="about" class="section">
+            <h2 class="section-title">关于我们</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 服务部分 -->
+        <section id="services" class="section">
+            <h2 class="section-title">我们的服务</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 作品部分 -->
+        <section id="portfolio" class="section">
+            <h2 class="section-title">作品展示</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-suitcase"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">刘翊</h3>
+                        <p class="card-text">刘翊</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 联系部分 -->
+        <section id="contact" class="section">
+            <h2 class="section-title">联系我们</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">我们的地址</h3>
+                        <p class="card-text">南安1-214<br>一床<br>邮编：114514<br>工作时间：周六至周日 19:00-8:00</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">联系电话</h3>
+                        <p class="card-text">客服热线：114514<br>业务咨询：114514<br>技术支持：114514<br>电子邮件：liuyi@sb.com</p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">在线咨询</h3>
+                        <p class="card-text">欢迎通过以下方式联系我们：<br>微信：ababa<br>QQ：123456789<br>微博：@刘翊<br>工作时间我们提供实时在线咨询服务。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#home">首页</a>
+                <a href="#about">关于我们</a>
+                <a href="#services">服务</a>
+                <a href="#portfolio">作品</a>
+                <a href="#contact">联系</a>
+                <a href="#">隐私政策</a>
+                <a href="#">使用条款</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 响应式单页网站. 保留所有权利. | 设计制作: 刘翊</p>
+                <p>本页面仅为演示响应式设计效果，内容仅供参考。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端导航切换功能
+        const navToggle = document.getElementById('navToggle');
+        const navMobile = document.getElementById('navMobile');
+        
+        navToggle.addEventListener('click', function() {
+            navMobile.classList.toggle('active');
+            
+            // 切换图标
+            const icon = navToggle.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // 点击导航链接后关闭移动端菜单
+        const navLinks = document.querySelectorAll('.nav-mobile a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMobile.classList.remove('active');
+                const icon = navToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 添加导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
